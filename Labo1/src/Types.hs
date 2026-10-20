@@ -1,7 +1,7 @@
 module Types
     ( Difficulty (..),  -- (..) Permet d'afficher les constructeurs
       Mark (..),        -- et pas seulement le nom. (Donc pouvoir
-      Conig (..),       -- utiliser (Easy, Medium, Hard) pour Difficulty)
+      Settings (..),       -- utiliser (Easy, Medium, Hard) pour Difficulty)
       Command (..)
     ) where
 
@@ -20,7 +20,8 @@ data Settings = Settings {
     tries :: Int,
     seed :: Maybe Int, -- Maybe because optionnal
     code :: Maybe String -- Maybe because optionnal
-}
+} deriving (Show)
 
 -- Commands of the game
-data Command = Play Config | Rate String deriving Show
+data Command = Play Settings | Rate String
+    deriving (Show)
