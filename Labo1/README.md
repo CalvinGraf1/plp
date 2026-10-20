@@ -56,10 +56,9 @@ Un enseignant qui veut un jeu de vocabulaire avec des mots de 7 lettres, un pare
 | `--code CODE` | Rejouer le puzzle correspondant à un code | aucun |
 | `--words FILE` | Utiliser une autre liste CSV (bonus) | `data/words.csv` |
 
-**Format du CSV :** une ligne d'en-tête `word`, puis un mot par ligne. Les mots ne contiennent que les lettres `a-z` (la liste fournie est sans accents).
+**Format du CSV :** Un mot par ligne. Les mots ne contiennent que les lettres `a-z` (la liste fournie est sans accents).
 
 ```csv
-word
 grave
 pause
 terre
