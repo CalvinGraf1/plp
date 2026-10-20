@@ -4,7 +4,7 @@
 
 **Cours :** PLP, HEIG-VD, Projet 1
 
-## Description
+## Description 
 
 Hordle est un jeu de Wordle en ligne de commande, écrit en Haskell. Dans le Wordle original, tout le monde joue le même mot de 5 lettres, une fois par jour, sans aucun contrôle sur la difficulté. Hordle laisse le joueur choisir la **longueur du mot** et la **difficulté**, puis tire un mot dans une **liste de mots au format CSV** qui correspond à ces choix.
 
