@@ -15,7 +15,7 @@ nextRandom x = (1103515245 * (x `mod` 2147483648) + 12345) `mod` 2147483648 -- L
 -- Exemple : nextRandom : 1250496027 `div` 65536  →  19081
 --           pickIndex  : 19081 `mod` 86          →  75
 pickIndex :: Int -> Int -> Int
-pickIndex s n (nextRandom s `div` 65536) `mod` n
+pickIndex s n = (nextRandom s `div` 65536) `mod` n
 
 -- Generate a list of candidate words based on the settings
 candidates :: [String] -> Settings -> [String]
