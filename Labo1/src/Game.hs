@@ -3,7 +3,8 @@ module Game
       validateGuess,
       markSquare,
       showMarks,
-      playGame
+      playGame,
+      shareGrid
     ) where
 
 import Data.Char (toLower, toUpper)
@@ -118,3 +119,21 @@ playGame maxTries ws answer = loop 1 []
                             putStrLn ("Gagné en " ++ show k ++ "/" ++ show maxTries ++ " !")
                             return (history ++ [ms])
                         else loop (k + 1) (history ++ [ms]) -- On relance la boucle avec k + 1 et on ajoute les marques de l'essai à l'historique
+
+-- Grille de partage de fin de partie : le code, le score, puis une ligne de
+-- carrés par essai, sans les lettres (pour ne pas révéler le mot).
+--   shareGrid code essaisMax lignes
+--
+--   hordle HL1-5-6-JBRTJ 4/6
+--   ⬛🟨⬛⬛🟩
+--   ...
+-- Le score vaut "X" si la partie est perdue (la dernière ligne n'est pas toute verte).
+shareGrid :: String -> Int -> [[Mark]] -> String
+shareGrid code maxTries rows = unlines (header : map showRow rows)
+  where
+    header = "hordle " ++ code ++ " " ++ score ++ "/" ++ show maxTries
+    score
+        | won       = show (length rows)
+        | otherwise = "X"
+    won = not (null rows) && all (== Green) (last rows)
+    showRow row = concatMap markSquare row

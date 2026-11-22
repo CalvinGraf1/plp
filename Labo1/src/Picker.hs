@@ -1,3 +1,7 @@
+module Picker
+    ( chooseWord
+    ) where
+
 import Types
 import WordList (filterByLength)
 import Difficulty (difficultyScore, classify)

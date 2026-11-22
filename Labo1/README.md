@@ -31,9 +31,9 @@ Un enseignant qui veut un jeu de vocabulaire avec des mots de 7 lettres, un pare
    - la rareté de ses lettres (calculée avec les fréquences des lettres dans la liste)
 
    Le score est ensuite classé en `Easy`, `Medium` ou `Hard`. Le joueur peut avoir les détails de difficulté d'un mot avec `rate`
-4. **Partie dans le terminal.** Le joueur a un nombre d'essais limité. Chaque essai est validé (bonne longueur, uniquement des lettres, présent dans la liste) et le résultat est affiché : 🟩 bien placée, 🟨 présente ailleurs dans le mot, ⬛ absente. Les lettres répétées sont gérées correctement.
+4. **Partie dans le terminal.** Le joueur a un nombre d'essais limité. Chaque essai est validé (bonne longueur, uniquement des lettres, présent dans le dictionnaire) et le résultat est affiché : 🟩 bien placée, 🟨 présente ailleurs dans le mot, ⬛ absente. Les lettres répétées sont gérées correctement.
 5. **Tirage reproductible.** `--seed N` rend le choix du mot déterministe. Nous écrivons notre propre petit générateur pseudo-aléatoire (une fonction pure), car le paquet `random` n'est pas distribué avec GHC.
-6. **Codes de puzzle.** Chaque puzzle a un code comme `WS1-5-6-KQVNB` (version, longueur du mot, nombre d'essais, et la réponse légèrement brouillée pour qu'elle ne soit pas lisible au premier coup d'œil). `play --code CODE` rejoue un puzzle.
+6. **Codes de puzzle.** Chaque puzzle a un code comme `HL1-5-6-JBRTJ` (version, longueur du mot, nombre d'essais, et la réponse légèrement brouillée pour qu'elle ne soit pas lisible au premier coup d'œil). `play --code CODE` rejoue un puzzle.
 7. **Grille de partage.** À la fin de la partie, l'application affiche une grille de carrés de couleur sans lettres, avec le code du puzzle et le nombre d'essais utilisés.
 
 ### Bonus
@@ -64,13 +64,22 @@ pause
 terre
 ```
 
+**Deux listes de mots.** Hordle utilise deux fichiers, chacun avec un rôle différent :
+
+| Fichier | Rôle |
+|---|---|
+| `data/words.csv` | Mots courants parmi lesquels la réponse est tirée, et sur lesquels la difficulté est calculée. |
+| `data/dictionary.csv` | Environ 180 000 mots français (3 à 10 lettres, sans accents), utilisés **uniquement** pour accepter ou refuser un essai. Le joueur peut ainsi taper n'importe quel vrai mot, mais pas un mot inventé comme `xyzzy`. |
+
+Le dictionnaire est généré à partir de [an-array-of-french-words](https://github.com/words/an-array-of-french-words) (licence MIT, © Zeke Sikelianos) : accents retirés, seuls les mots composés des lettres `a-z` sont gardés.
+
 ## Exemples
 
 ### Jouer une partie
 
 ```
 $ hordle play --length 5 --difficulty medium --seed 42
-Puzzle WS1-5-6-KQVNB (5 lettres, 6 essais)
+Puzzle HL1-5-6-JBRTJ (5 lettres, 6 essais)
 
 Essai 1/6 > pause
 P  A  U  S  E
@@ -94,7 +103,7 @@ G  R  A  V  E
 Gagné en 4/6 !
 
 Partagez votre résultat :
-hordle HL1-5-6-KQVNB 4/6
+hordle HL1-5-6-JBRTJ 4/6
 ⬛🟨⬛⬛🟩
 🟨🟩⬛⬛🟩
 🟩🟩⬛🟩🟩
@@ -106,7 +115,7 @@ Un essai invalide ne consomme pas d'essai. Le code et les valeurs de ces exemple
 ### Rejouer un puzzle partagé
 
 ```
-$ hordle play --code WS1-5-6-KQVNB
+$ hordle play --code HL1-5-6-JBRTJ
 ```
 
 ### Évaluer un mot

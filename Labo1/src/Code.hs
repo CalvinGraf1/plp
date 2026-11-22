@@ -28,7 +28,7 @@ decodeCode raw =
         [v, l, t, w]
             | v /= codeVersion                 -> bad ("version \"" ++ v ++ "\" inconnue")
             | not (isNumber l && isNumber t)   -> bad "la longueur et le nombre d'essais doivent être des nombres"
-            | read t < 1                       -> bad "il faut au moins un essai"
+            | (read t :: Int) < 1                   -> bad "il faut au moins un essai"
             | not (all (`elem` ['A' .. 'Z']) w) -> bad "le mot ne doit contenir que des lettres"
             | length w /= read l               -> bad "la longueur ne correspond pas au mot"
             | otherwise                        -> Right (read l, read t, unscramble w)
