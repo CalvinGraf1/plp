@@ -73,6 +73,17 @@ terre
 
 Le dictionnaire est généré à partir de [an-array-of-french-words](https://github.com/words/an-array-of-french-words) (licence MIT, © Zeke Sikelianos) : accents retirés, seuls les mots composés des lettres `a-z` sont gardés.
 
+## Compiler et tester
+
+Depuis le dossier `Labo1` (le programme lit `data/` avec un chemin relatif) :
+
+```
+ghc -isrc -outputdir build -o hordle src/Main.hs
+runghc -isrc tests/Spec.hs
+```
+
+Les tests couvrent les fonctions pures (évaluation des essais, codes de puzzle, arguments, lecture du CSV, difficulté, tirage).
+
 ## Exemples
 
 ### Jouer une partie

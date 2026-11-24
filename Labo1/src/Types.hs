@@ -20,8 +20,8 @@ data Settings = Settings {
     tries :: Int,
     seed :: Maybe Int, -- Maybe because optionnal
     code :: Maybe String -- Maybe because optionnal
-} deriving (Show)
+} deriving (Show, Eq)
 
 -- Commands of the game
 data Command = Play Settings | Rate String
-    deriving (Show)
+    deriving (Show, Eq)

@@ -5,14 +5,20 @@ module WordList (loadWords,
 
 import Data.Char (toLower) --  Converts all words in our .CSV file to lowercase
 import Data.List (nub) -- Removes duplicate elements from a list
+import System.Directory (doesFileExist)
 
 -- Reading of a file
+-- Si le fichier n'existe pas, on renvoie une erreur au lieu de laisser readFile planter.
 loadWords :: FilePath -> IO (Either String [String])
 loadWords path = do
-    contents <- readFile path -- Read file (contents = String of all the file)
-    case parseWords contents of
-        Left err -> return (Left (path ++ ", " ++ err))
-        Right ws -> return (Right ws)
+    exists <- doesFileExist path
+    if not exists
+        then return (Left (path ++ " introuvable. Lancez hordle depuis le dossier Labo1."))
+        else do
+            contents <- readFile path -- Read file (contents = String of all the file)
+            case parseWords contents of
+                Left err -> return (Left (path ++ ", " ++ err))
+                Right ws -> return (Right ws)
 
 -- backticks : Transforme "elem lettre liste" -> "lettre elem liste"
 -- Pour avoir (all fonction liste) -> all Lettre1 elem Liste
